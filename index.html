@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나이 맞추기 게임</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      background-color: pink;
+    }
+    #result {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    #girlImage {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>나이 맞추기 게임</h1>
+
+  <img src="https://mblogthumb-phinf.pstatic.net/20160926_269/eomji_123_1474899021082MCfHU_PNG/%BE%E7%BE%C6%C4%A1%B3%E0_%B1%D7%B8%AE%B1%E2_1.png?type=w420" alt="여자 아이 그림" id="girlImage">
+
+  <p>5부터 20까지의 숫자 중에서 여자 아이의 나이를 맞춰보세요:</p>
+  
+  <input type="number" id="userGuess" placeholder="나이를 입력하세요">
+  <button onclick="checkGuess()">확인</button>
+
+  <div id="result"></div>
+
+  <script>
+    var girlImage = document.getElementById('girlImage');
+    var resultDiv = document.getElementById('result');
+
+    function startNewGame() {
+      // 초기화 코드 추가
+      secretAge = Math.floor(Math.random() * 16) + 5;
+      girlImage.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn17uOOXGF0Ky3tVfh1X3aWIVQSMEcFA7mdA&usqp=CAU";
+      document.getElementById('userGuess').value = "";
+      resultDiv.innerHTML = "";
+      attempts = 0;
+    }
+
+    var secretAge = Math.floor(Math.random() * 16) + 5; // 5부터 20까지의 숫자
+    var attempts = 0;
+
+    function checkGuess() {
+      var userGuess = document.getElementById('userGuess').value;
+
+      if (userGuess == secretAge) {
+        resultDiv.innerHTML = '오 좀 하는데! 내 나이 ' + secretAge + '를 맞췄어. 시도 횟수: ' + (attempts + 1);
+
+        // 맞췄을 때 다른 그림으로 게임 다시 시작
+        setTimeout(startNewGame, 2000); // 2초 후에 startNewGame 함수 호출
+      } else {
+        attempts++;
+        var hint = userGuess < secretAge ? '난 더 오래 살았어.' : '나 더 어리거든.';
+        resultDiv.innerHTML = '틀렸어. ' + hint + ' 시도 횟수: ' + attempts;
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
